@@ -17,7 +17,7 @@
         </p>
 
         <figure>
-            <img src="{{ article.image }}" alt="photo" style="max-width: 60%">
+            <img src="{{ asset('Admin/uploads/images/'~ article.image) }}" alt="photo" style="max-width: 60%">
         </figure>
         <small class="text-muted">Date de publication : {{ article.createdAt|date("d/m/Y") }}</small>
 

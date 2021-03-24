@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,7 +49,7 @@ class ArticleController extends AbstractController
     /**
      * @param ArticleRepository $artrepo
      * @return Response
-     * @Route("/article/table"), name ("table")
+     * @Route("/article/table", name="table")
      */
     public function tablearticle(ArticleRepository $artrepo)
     {
@@ -70,8 +71,18 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $file= $article->getImage();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            try {
+                $file->move(
+                    $this->getParameter("images_directory"),
+                    $fileName
+                );
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
             $em = $this->getDoctrine()->getManager();
-
+            $article->setImage($fileName);
             $em->persist($article);
             $em->flush();
 
@@ -102,18 +113,20 @@ class ArticleController extends AbstractController
             "form" => $form->createView()
         ]);
     }
-    /**
-     * @Route("/article/{id}/delete", name="article_delete")
-     * @param Article $article
-     * @return RedirectResponse
-     */
-    public function delete(Article $article): RedirectResponse
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($article);
-        $em->flush();
 
-        return $this->redirectToRoute("table");
+    /**
+     * @param ArticleRepository $repo
+     * @param $id
+     * @return RedirectResponse
+     * @Route("/article/{id}/delete", name="article_delete")
+     */
+    public function delete(ArticleRepository $repo, $id): RedirectResponse
+    {
+        $art = $repo->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($art);
+        $em->flush();
+        return $this->redirectToRoute('table');
     }
 
 

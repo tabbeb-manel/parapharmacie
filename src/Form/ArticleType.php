@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,12 +22,13 @@ class ArticleType extends AbstractType
             ->add('description', TextareaType::class,[
                 "attr"=>["class"=>"form-control"]
             ])
-            ->add('image', TextType::class,[
+            ->add('image', FileType::class,[
                 "attr"=>["class"=>"form-control"]])
-            ->add('createdAt', DateType::class, [
+            ->add('createdAt', DateType::class, ['data' => new \DateTime("now"),
                 "attr"=>["class"=>"form-control","readonly"=>"", "value"=>"01-01-2014", "size"=>"16"]
-            ])
-        ;
+            ]);
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

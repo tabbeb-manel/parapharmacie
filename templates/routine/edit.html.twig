@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RoutineController!{% endblock %}
+
+{% block content %}
+    <div class="container container-fluid row">
+ <h3 style="text-align: center">Modifier la Routine {{ routine.nameRoutine }}</h3>
+    <div class="container col-md-5">
+        <div class=" register-form form">
+            {{ form(form) }}
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

@@ -6,12 +6,17 @@ use App\Repository\RoutineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=RoutineRepository::class)
+ * @UniqueEntity( fields={"nameRoutine"}, message="ce nom existe déjà.")
  */
 class Routine
 {
+    const Active= 'Activée';
+    const Desactive= 'Désactivée';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,12 +25,12 @@ class Routine
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $nameRoutine;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string",columnDefinition="ENUM('Activée', 'Désactivée')", length=255, nullable=true)
      */
     private $notification;
 
@@ -69,12 +74,15 @@ class Routine
         return $this->notification;
     }
 
-    public function setNotification(string $notification): self
+    /**
+     * @param mixed $notification
+     */
+    public function setNotification($notification): void
     {
         $this->notification = $notification;
-
-        return $this;
     }
+
+
 
     /**
      * @return Collection|Product[]
@@ -82,6 +90,14 @@ class Routine
     public function getProducts(): Collection
     {
         return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts(ArrayCollection $products): void
+    {
+        $this->products = $products;
     }
 
     public function addProduct(Product $product): self
