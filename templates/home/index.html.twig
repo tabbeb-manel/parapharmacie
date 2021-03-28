@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Nos Articles{% endblock %}
 
 {% block content %}
 
@@ -9,8 +9,8 @@
         <div class="review">
         <div class="container-fluid">
             <div class="row align-items-center review-slider normal-slider">
-                <div class="">
-                    <a class="review-slider-item">
+                <div class="row">
+                    <div class="review-slider-item">
                         <div class="review-img">
                             <img src="{{ asset('Admin/uploads/images/'~ article.image) }}" alt="image-article">
                         </div>
@@ -21,8 +21,9 @@
                             <p>
                                 {{ article.description|slice(0,50) }}
                             </p>
+                            <a href="{{ path('article_show',{'id':article.id}) }}" ><button class="btn">Lire l'article</button></a>
                         </div>
-                        <a href="{{ path('article_show',{'id':article.id}) }}" ><button class="btn">Lire l'article</button></a>
+
                     </div>
                 </div>
             </div>
@@ -30,6 +31,10 @@
         </div>
         </div>
     {% endfor %}
+    <div class="navigation" style="padding-left: 400px">
+        {{ knp_pagination_render(articles) }}
+
+    </div>
 {% endblock %}
 
 

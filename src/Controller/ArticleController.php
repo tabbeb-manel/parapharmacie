@@ -9,6 +9,7 @@ use App\Repository\ArticleLikeRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +21,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article", name="article")
      */
-    public function index(ArticleRepository $artrepo)
+    public function index(ArticleRepository $artrepo, PaginatorInterface $paginator, Request $request)
     {
-        $articles = $artrepo->findAll();
+        $donnees = $artrepo->findBy([],['createdAt'=>'desc']);
+        $articles= $paginator->paginate($donnees,
+            $request->query->getInt('page',1),4);
         return $this->render('home/index.html.twig', [
             'articles' => $articles,
         ]);
@@ -42,9 +45,13 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articlescard", name="articles")
      */
-    public function home(ArticleRepository $artrepo)
+    public function home(ArticleRepository $artrepo, Request $request, PaginatorInterface $paginator)
     {
-        $articles = $artrepo->findAll();
+        $donnees = $artrepo->findBy([],['createdAt'=>'desc']);
+        $articles =$paginator->paginate(
+          $donnees,
+          $request->query->getInt('page',1),4
+        );
         return $this->render('article/index.html.twig', [
             'articles' => $articles,
         ]);

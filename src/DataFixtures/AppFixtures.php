@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
     private static $articleImages = [
         '21dbb291553fffd9a2d0c1b7331adcd0.jpeg',
         '852905373a83c2a56591239191635501.jpeg',
-        'a8f13c475c76efbf93423e01cac20f5a.png',
+        'a8f13c475c76efbf93423e01cac20f5a.jpeg',
     ];
     private static $skintypes = [
         'Peau Séche',
