@@ -7,6 +7,7 @@ use App\Entity\ArticleLike;
 use App\Form\ArticleType;
 use App\Repository\ArticleLikeRepository;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -135,11 +136,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}/like", name="article_like")
      * @param Article $article
-     * @param ObjectManager $manager
+     *
      * @param ArticleLikeRepository $likerepo
      * @return Response
      */
-    public function like(Article $article, ObjectManager $manager, ArticleLikeRepository $likerepo) : Response{
+    public function like(Article $article,  ArticleLikeRepository $likerepo) : Response{
         $user = $this->getUser();
         if(!$user) return $this->json([
             'code'=> 403,
@@ -150,6 +151,7 @@ class ArticleController extends AbstractController
                 'article' => $article,
                 'user'=> $user
             ]);
+            $manager =$this->getDoctrine()->getManager();
             $manager->remove($like);
             $manager->flush();
             return $this->json([
@@ -161,6 +163,7 @@ class ArticleController extends AbstractController
         $like = new ArticleLike();
         $like->setArticle($article)
             ->getUser($user);
+        $manager =$this->getDoctrine()->getManager();
         $manager->persist($like);
         $manager->flush();
         return $this->json(['code'=> 200, 'message'=>'Like bien ajouté','likes'=>$likerepo->count(['article'=>$article])
