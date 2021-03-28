@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\ArticleLike;
 use App\Form\ArticleType;
+use App\Repository\ArticleLikeRepository;
 use App\Repository\ArticleRepository;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -127,6 +130,41 @@ class ArticleController extends AbstractController
         $em->remove($art);
         $em->flush();
         return $this->redirectToRoute('table');
+    }
+
+    /**
+     * @Route("/article/{id}/like", name="article_like")
+     * @param Article $article
+     * @param ObjectManager $manager
+     * @param ArticleLikeRepository $likerepo
+     * @return Response
+     */
+    public function like(Article $article, ObjectManager $manager, ArticleLikeRepository $likerepo) : Response{
+        $user = $this->getUser();
+        if(!$user) return $this->json([
+            'code'=> 403,
+            'message'=>"Unauthorized"
+        ],403);
+        if ($article->isLikedByUser($user)){
+            $like = $likerepo->findOneBy([
+                'article' => $article,
+                'user'=> $user
+            ]);
+            $manager->remove($like);
+            $manager->flush();
+            return $this->json([
+                'code' => 200,
+                'message'=>'Like est supprimé',
+                'likes'=> $likerepo->count(['article'=> $article])
+            ], 200);
+        }
+        $like = new ArticleLike();
+        $like->setArticle($article)
+            ->getUser($user);
+        $manager->persist($like);
+        $manager->flush();
+        return $this->json(['code'=> 200, 'message'=>'Like bien ajouté','likes'=>$likerepo->count(['article'=>$article])
+        ], 200);
     }
 
 
