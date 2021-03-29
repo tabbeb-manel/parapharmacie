@@ -2,15 +2,25 @@
 
 namespace App\Entity;
 
+use App\Form\ModifierType;
 use App\Repository\UserRepository;
+use App\Form\RegistrationType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="L'émail que vous avez tapé est déjà utilisé !"
+ * )
  */
-class User
+
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -47,13 +57,27 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $login;
+    private $username;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $PhoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Assert\Length(
+     * min = 8,
+     * minMessage = "Votre mot de passe doit comporter au minimum {{ limit }} caractères")
+     * @Assert\EqualTo(propertyPath = "confirm_password",
+     * message="Vous n'avez pas saisi le même mot de passe !" )
      */
     private $password;
-
+    /**
+     * @Assert\EqualTo(propertyPath = "password",
+     * message="Vous n'avez pas saisi le même mot de passe !" )
+     */
+    private $confirm_password;
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
      */
@@ -140,16 +164,20 @@ class User
         return $this;
     }
 
-    public function getLogin(): ?string
+    /**
+     * @return mixed
+     */
+    public function getUsername()
     {
-        return $this->login;
+        return $this->username;
     }
 
-    public function setLogin(string $login): self
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username): void
     {
-        $this->login = $login;
-
-        return $this;
+        $this->username = $username;
     }
 
     public function getPassword(): ?string
@@ -235,4 +263,35 @@ class User
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoneNumber()
+    {
+        return $this->PhoneNumber;
+    }
+
+    /**
+     * @param mixed $PhoneNumber
+     */
+    public function setPhoneNumber($PhoneNumber): void
+    {
+        $this->PhoneNumber = $PhoneNumber;
+    }
+    public function getConfirmPassword()
+    {
+        return $this->confirm_password;
+    }
+    public function setConfirmPassword($confirm_password)
+    {
+        $this->confirm_password = $confirm_password;
+        return $this;
+    }
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+    public function eraseCredentials() {}
+    public function getSalt() {}
 }

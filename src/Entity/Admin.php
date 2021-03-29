@@ -22,7 +22,12 @@ class Admin
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $login;
+    private $adminname;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $maildmin;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -44,17 +49,38 @@ class Admin
         return $this->id;
     }
 
-    public function getLogin(): ?string
+    /**
+     * @return mixed
+     */
+    public function getAdminname()
     {
-        return $this->login;
+        return $this->adminname;
     }
 
-    public function setLogin(string $login): self
+    /**
+     * @param mixed $adminname
+     */
+    public function setAdminname($adminname): void
     {
-        $this->login = $login;
-
-        return $this;
+        $this->adminname = $adminname;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMaildmin()
+    {
+        return $this->maildmin;
+    }
+
+    /**
+     * @param mixed $maildmin
+     */
+    public function setMaildmin($maildmin): void
+    {
+        $this->maildmin = $maildmin;
+    }
+
 
     public function getPassword(): ?string
     {

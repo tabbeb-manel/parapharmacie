@@ -1,0 +1,72 @@
+{% extends 'base2.html.twig' %}
+{% block content %}
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- page start-->
+            <div class="row mt">
+                <div class="col-sm-3">
+                    <section class="panel">
+                        <div class="panel-body">
+                            <a href="mail_compose.html" class="btn btn-compose">
+                                <i class="fa fa-pencil"></i>  Compose Mail
+                            </a>
+                            <ul class="nav nav-pills nav-stacked mail-nav">
+                                <li class="active"><a href="inbox.html"> <i class="fa fa-inbox"></i> Inbox  <span class="label label-theme pull-right inbox-notification">3</span></a></li>
+                                <li><a href="#"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
+                                </li>
+                            </ul>
+                            <section class="panel">
+                                <div class="panel-body">
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-sm-9">
+                    <section class="panel">
+                        <header class="panel-heading wht-bg">
+                            <h4 class="gen-case">
+                                Compose Mail
+                                <form action="#" class="pull-right mail-src-position">
+                                    <div class="input-append">
+                                        <input type="text" class="form-control " placeholder="Search Mail">
+                                    </div>
+                                </form>
+                            </h4>
+                        </header>
+                        <div class="panel-body">
+                            <div class="compose-btn pull-right">
+                            </div>
+                            <div class="compose-mail">
+                                <form role="form-horizontal" method="post">
+                                    <div class="form-group">
+                                        <label for="to" class="">To:</label>
+                                        <input type="text" tabindex="1" id="to" class="form-control">
+                                        <div class="compose-options">
+                                            <a onclick="$(this).hide(); $('#cc').parent().removeClass('hidden'); $('#cc').focus();" href="javascript:;">Cc</a>
+                                            <a onclick="$(this).hide(); $('#bcc').parent().removeClass('hidden'); $('#bcc').focus();" href="javascript:;">Bcc</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hidden">
+                                        <label for="cc" class="">Cc:</label>
+                                        <input type="text" tabindex="2" id="cc" class="form-control">
+                                    </div>
+                                    <div class="form-group hidden">
+                                        <label for="bcc" class="">Bcc:</label>
+                                        <input type="text" tabindex="2" id="bcc" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subject" class="">Subject:</label>
+                                        <input type="text" tabindex="1" id="subject" class="form-control">
+                                    </div>
+                                    <div class="compose-editor">
+                                        <textarea class="wysihtml5 form-control" rows="9"></textarea>
+
+                                    </div>
+                                    <div class="compose-btn">
+                                        <button class="btn btn-theme btn-sm"><i class="fa fa-check"></i> Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+{% endblock %}

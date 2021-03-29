@@ -1,0 +1,33 @@
+{% extends 'base2.html.twig' %}
+{% block content %}
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+            <!-- page start-->
+            <div class="chat-room mt">
+                <aside class="mid-side">
+                    <div class="chat-room-head">
+                        <h3>Chat Room: Support</h3>
+                        <form action="#" class="pull-right position">
+                            <input type="text" placeholder="Search" class="form-control search-btn ">
+                        </form>
+                    </div>
+                    <div class="group-rom">
+                        <div class="first-part odd">username </div>
+                        <div class="second-part">message</div>
+                        <div class="third-part">12:30</div>
+                    </div>
+                </aside>
+            </div>
+            <footer>
+                <div class="chat-txt">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="btn-group hidden-sm hidden-xs">
+                    <button type="button" class="btn btn-white"><i class="fa fa-meh-o"></i></button>
+                    <button type="button" class="btn btn-white"><i class=" fa fa-paperclip"></i></button>
+                </div>
+                <button class="btn btn-theme">Send</button>
+            </footer>
+        </section>
+    </section>
+{% endblock %}
