@@ -1,0 +1,54 @@
+{% extends 'base2.html.twig' %}
+{% block content %}
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- row -->
+            <div class="row mt">
+                <div class="col-md-12">
+                    <div class="content-panel">
+                        <table class="table table-striped table-advance table-hover">
+                            <h3><i class="fa fa-angle-right"></i> Liste Des Clients</h3>
+                            <hr>
+                            <thead>
+                            <tr>
+                                <th><i class="fa fa-bullhorn"></i> Id</th>
+                                <th> Pseudo</th>
+                                <th> Nom </th>
+                                <th> Prénom</th>
+                                <th> Date de Naissance</th>
+                                <th>Adresse</th>
+                                <th> Numero de téléphone </th>
+                                <th> Type de peau </th>
+                                <th> E-mail</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for u in liste %}
+                                <tr>
+                                    <td>
+                                        <a href="basic_table.html#">{{ u.id }}</a>
+                                    </td>
+                                    <td>{{ u.username }}</td>
+                                    <td>{{ u.firstName }}</td>
+                                    <td>{{ u.lastName }}</td>
+                                    <td>{{ u.dateBirth|date("m/d/y") }}</td>
+                                    <td>{{ u.adress }}</td>
+                                    <td>{{ u.PhoneNumber }}</td>
+                                    <td>{{ u.skinType }}</td>
+                                    <td>{{ u.email }}</td>
+                                    <td>
+                                        <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
+                                        <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                        <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+{% endblock %}

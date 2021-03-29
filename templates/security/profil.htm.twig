@@ -1,0 +1,514 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RoutineController!{% endblock %}
+
+{% block content %}
+    <div class="my-account">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Routines</a>
+                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Mes commandes</a>
+                        <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>addresse</a>
+                        <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Détail du compte</a>
+                        <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <div class="sidebar-widget category">
+                            <h2 class="title">Routines</h2>
+                            <nav class="navbar bg-light">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="fa fa-tasks"></i>Routine d'hiver</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="fa fa-tasks"></i>Routine de automne</a>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                            <h2>Mes routines</h2>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Nom de la Routine</th>
+                                        <th>Notification</th>
+                                        <th>Produits</th>
+                                        <th>Modifier</th>
+                                        <th>Supprimer</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr {% for routine in routines %}>
+                                        <td><a href="{{ path('routine_show',{'idr':routine.id }) }}" class="btn" ><a href="#popup111" >{{ routine.nameRoutine }}</a></a></td>
+                                        <div id="popup111" class="overlay12">
+                                            <div class="popup11">
+                                                <h2>{{ routine.nameRoutine }}</h2>
+                                                <a class="close1" href="#">&times;</a>
+                                                <div class="content1">
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {% if  (routine.notification  == 'activée')  %}
+                                            <td>Activée</td>
+                                        {% else %}
+                                            <td>Désactivée</td>
+                                        {% endif %}
+                                        <td {% for product in routine.products %}><ul>
+                                                <li>{{ product.nameProduct }} | {{ product.brand }} <a class="btn" href="{{ path('deleteprodrout',{'idp':product.id,'idr':routine.id}) }}"><i class="fa fa-trash"></i></a></li>
+                                            </ul></td {% endfor %}>
+
+                                        <td><a class="btn" href="{{ path('routine_edit',{'id':routine.id}) }}"><i class="fa fa-pencil-square-o"></i></a></td>
+                                        <td><a class="btn" href="{{ path('remove_routine',{'id':routine.id}) }}"><i class="fa fa-trash"></i></a></td>
+
+                                    </tr {% endfor %}>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <h4>Produit par type type de peau</h4>
+                            <div class="product-view">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="product-view-top">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="product-search">
+                                                                    <input type="email" value="Search">
+                                                                    <button><i class="fa fa-search"></i></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="product-short">
+                                                                    <div class="dropdown">
+                                                                        <div class="dropdown-toggle" data-toggle="dropdown">Categorie</div>
+                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                            <a href="#" class="dropdown-item">Newest</a>
+                                                                            <a href="#" class="dropdown-item">Popular</a>
+                                                                            <a href="#" class="dropdown-item">Most sale</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="product-price-range">
+                                                                    <div class="dropdown">
+                                                                        <div class="dropdown-toggle" data-toggle="dropdown">Product price range</div>
+                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                            <a href="#" class="dropdown-item">$0 to $50</a>
+                                                                            <a href="#" class="dropdown-item">$51 to $100</a>
+                                                                            <a href="#" class="dropdown-item">$101 to $150</a>
+                                                                            <a href="#" class="dropdown-item">$151 to $200</a>
+                                                                            <a href="#" class="dropdown-item">$201 to $250</a>
+                                                                            <a href="#" class="dropdown-item">$251 to $300</a>
+                                                                            <a href="#" class="dropdown-item">$301 to $350</a>
+                                                                            <a href="#" class="dropdown-item">$351 to $400</a>
+                                                                            <a href="#" class="dropdown-item">$401 to $450</a>
+                                                                            <a href="#" class="dropdown-item">$451 to $500</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-1.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-2.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-3.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-4.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-5.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-6.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-7.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-8.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="product-item">
+                                                        <div class="product-title">
+                                                            <a href="#">Product Name</a>
+                                                            <div class="ratting">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-image">
+                                                            <a href="product-detail.html">
+                                                                <img src="img/product-9.jpg" alt="Product Image">
+                                                            </a>
+                                                            <div class="product-action">
+                                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <h3><span>$</span>99</h3>
+                                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination justify-content-center">
+                                                        <li class="page-item disabled">
+                                                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                                        </li>
+                                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#">Next</a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Product</th>
+                                        <th>Date</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Product Name</td>
+                                        <td>01 Jan 2020</td>
+                                        <td>$99</td>
+                                        <td>Approved</td>
+                                        <td><button class="btn">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Product Name</td>
+                                        <td>01 Jan 2020</td>
+                                        <td>$99</td>
+                                        <td>Approved</td>
+                                        <td><button class="btn">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Product Name</td>
+                                        <td>01 Jan 2020</td>
+                                        <td>$99</td>
+                                        <td>Approved</td>
+                                        <td><button class="btn">View</button></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
+                            <h4>Address</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Payment Address</h5>
+                                    <p>123 Payment Street, Los Angeles, CA</p>
+                                    <p>Mobile: 012-345-6789</p>
+                                    <button class="btn">Edit Address</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Shipping Address</h5>
+                                    <p>123 Shipping Street, Los Angeles, CA</p>
+                                    <p>Mobile: 012-345-6789</p>
+                                    <button class="btn">Edit Address</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
+                            <h4>Account Details</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="First Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="Last Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="Mobile">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="Email">
+                                </div>
+                                <div class="col-md-12">
+                                    <input class="form-control" type="text" placeholder="Address">
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Update Account</button>
+                                    <br><br>
+                                </div>
+                            </div>
+                            <h4>Password change</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input class="form-control" type="password" placeholder="Current Password">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="New Password">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="Confirm Password">
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

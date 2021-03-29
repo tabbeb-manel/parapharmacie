@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <h1> modifier </h1>
+    <!-- Login Start -->
+    {{ form_start(form) }}
+    <div class="login">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="register-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.username, { 'label':'Pseudo', 'attr': {'placeholder':'Pseudo...' } }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.firstName, { 'label':'Nom de famille ', 'attr': {'placeholder':'Nom...' } }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.lastName, { 'label':'Prénom', 'attr': {'placeholder':'Prénom...' } }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.dateBirth,{ 'label':'Date de Naissance'}) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.adress, { 'label':'Adresse', 'attr': {'placeholder':'Adresse...' } }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.PhoneNumber, { 'label':'Numéro de téléphone', 'attr': {'placeholder':'Numéro de téléphone...' } }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.skinType,{ 'label':'Type de Peau'})}}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.email, { 'attr': { 'placeholder': 'Adresse email...' } } ) }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ form_row(form.password, { 'label':'Mot de passe', 'attr': {'placeholder':'Mot de passe...' } }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.confirm_password, { 'label':'Confirmez votre mot de passe ','attr':{'placeholder':'Répétez votre mot de passe...' } }) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_row(form.submit, {'attr': {'class':"btn" } })}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+
