@@ -151,7 +151,7 @@ class ArticleController extends AbstractController
         $user = $this->getUser();
         if(!$user) return $this->json([
             'code'=> 403,
-            'message'=>"Unauthorized"
+            'message'=> "Unauthorized"
         ],403);
         if ($article->isLikedByUser($user)){
             $like = $likerepo->findOneBy([
@@ -169,7 +169,7 @@ class ArticleController extends AbstractController
         }
         $like = new ArticleLike();
         $like->setArticle($article)
-            ->getUser($user);
+            ->setUser($user);
         $manager =$this->getDoctrine()->getManager();
         $manager->persist($like);
         $manager->flush();

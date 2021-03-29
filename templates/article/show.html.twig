@@ -20,7 +20,7 @@
             <img src="{{ asset('Admin/uploads/images/'~ article.image) }}" alt="photo" style="max-width: 60%">
         </figure>
         <small class="text-muted">Date de publication : {{ article.createdAt|date("d/m/Y") }}</small>
-                 <a href="{{ path('article_like',{'id': article.id}) }}" class="btn-link js-like" style="padding-left: 300px">
+                 <a href="{{ path('article_like',{'id': article.id}) }}" class="btn-link js-like" style="padding-left: 300px; color: #e99de1">
                      {% if app.user and article.isLikedByUser(app.user) %}
                          <i class="fas fa-thumbs-up"></i>
                      {% else %}
@@ -47,6 +47,7 @@
                 const icone =this.querySelector('i')
 
                 axios.get(url).then(function (response){
+                    console.log(response);
                     spanCount.textContent= response.data.likes;
                     if(icone.classList.contains('fas')){
                         icone.classList.replace('fas','far');

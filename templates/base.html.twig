@@ -56,7 +56,7 @@
                 <div class="navbar-nav mr-auto">
                     <a href="index.html" class="nav-item nav-link active">Accueil</a>
                     <a href="product-list.html" class="nav-item nav-link">Produits</a>
-                    <a href="product-detail.html" class="nav-item nav-link">Articles & Astuces</a>
+                    <a href="{{ path('article') }}" class="nav-item nav-link">Articles & Astuces</a>
                     <a href="cart.html" class="nav-item nav-link">Panier</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                     <!--<div class="nav-item dropdown">
@@ -69,14 +69,23 @@
                     </div>-->
                 </div>
                 <div class="navbar-nav ml-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mon compte</a>
-                        <div class="dropdown-menu">
-                            <a href="my-account.html" class="dropdown-item">Mon compte</a>
-                            <a href="#" class="dropdown-item">Se connecter</a>
-                            <a href="#" class="dropdown-item">S'inscrire</a>
-                        </div>
-                    </div>
+
+                    {% if not app.user %}
+                        <li class="nav-item">
+                            <a href="{{ path('security_login')}}" class="nav-link">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('security_registration') }}" class="nav-link">S'inscrire</a>
+                        </li>
+
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{{ path('security_logout')}}" class="nav-link">Déconnexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('routines') }}" class="nav-link">Mon profil</a>
+                        </li>
+                    {% endif %}
                 </div>
             </div>
         </nav>
@@ -197,6 +206,5 @@
 
 
 <script src="{{ asset('js/main.js') }}"></script>
-{% block Javascripts %} {% endblock %}
 </body>
 </html>

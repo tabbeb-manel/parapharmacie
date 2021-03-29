@@ -22,7 +22,7 @@ class ArticleType extends AbstractType
             ->add('description', TextareaType::class,[
                 "attr"=>["class"=>"form-control"]
             ])
-            ->add('image', FileType::class,[
+            ->add('image', FileType::class,['data_class' => null,
                 "attr"=>["class"=>"form-control"]])
             ->add('createdAt', DateType::class, ['data' => new \DateTime("now"),
                 "attr"=>["class"=>"form-control","readonly"=>"", "value"=>"01-01-2014", "size"=>"16"]

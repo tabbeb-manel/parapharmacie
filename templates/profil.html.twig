@@ -12,7 +12,7 @@
                         <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Mes commandes</a>
                         <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>addresse</a>
                         <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Détail du compte</a>
-                        <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                        <a class="nav-link" href="{{ path('security_logout')}}"><i class="fa fa-sign-out-alt"></i>Logout</a>
                     </div>
                     <br>
                     <div class="container">
@@ -49,17 +49,7 @@
                                 </thead>
                                 <tbody>
                                 <tr {% for routine in routines %}>
-                                    <td><a href="{{ path('routine_show',{'idr':routine.id }) }}" class="btn" ><a href="#popup111" >{{ routine.nameRoutine }}</a></a></td>
-                                    <div id="popup111" class="overlay12">
-                                        <div class="popup11">
-                                            <h2>{{ routine.nameRoutine }}</h2>
-                                            <a class="close1" href="#">&times;</a>
-                                            <div class="content1">
-
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <td><!--<a href="{{ path('routine_show',{'idr':routine.id }) }}" class="btn" >--><a href="#popup111" >{{ routine.nameRoutine }}</a></td>
 
                                     {% if  (routine.notification  == 'activée')  %}
                                         <td>Activée</td>
@@ -67,7 +57,7 @@
                                         <td>Désactivée</td>
                                     {% endif %}
                                     <td {% for product in routine.products %}><ul>
-                                            <li>{{ product.nameProduct }} | {{ product.brand }} <a class="btn" href="{{ path('deleteprodrout',{'idp':product.id,'idr':routine.id}) }}"><i class="fa fa-trash"></i></a></li>
+                                            <li>{{ product.nameProduct }} | {{ product.brand }} ></li><a class="btn" href="{{ path('deleteprodrout',{'idp':product.id,'idr':routine.id}) }}"><i class="fa fa-trash"></i></a>
                                         </ul></td {% endfor %}>
 
                                     <td><a class="btn" href="{{ path('routine_edit',{'id':routine.id}) }}"><i class="fa fa-pencil-square-o"></i></a></td>

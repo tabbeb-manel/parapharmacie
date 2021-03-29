@@ -2,15 +2,23 @@
 
 namespace App\Entity;
 
+
 use App\Repository\UserRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"email"},
+ * message="L'émail que vous avez tapé est déjà utilisé !"
+ * )
  */
+
 class User implements UserInterface
 {
     /**
@@ -45,15 +53,23 @@ class User implements UserInterface
      */
     private $adress;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $login;
+
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Assert\Length(
+     * min = 8,
+     * minMessage = "Votre mot de passe doit comporter au minimum {{ limit }} caractères")
+     * @Assert\EqualTo(propertyPath = "confirm_password",
+     * message="Vous n'avez pas saisi le même mot de passe !" )
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath = "password",
+     * message="Vous n'avez pas saisi le même mot de passe !" )
+     */
+    private $confirm_password;
 
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
@@ -70,9 +86,31 @@ class User implements UserInterface
      */
     private $skinType;
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="integer")
      */
-    private $roles = [];
+    private $PhoneNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @return mixed
+     */
+    public function getPhoneNumber()
+    {
+        return $this->PhoneNumber;
+    }
+
+    /**
+     * @param mixed $PhoneNumber
+     */
+    public function setPhoneNumber($PhoneNumber): void
+    {
+        $this->PhoneNumber = $PhoneNumber;
+    }
+
 
     /**
      * @ORM\OneToMany(targetEntity=ArticleLike::class, mappedBy="user")
@@ -115,12 +153,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDateBirth(): ?\DateTimeInterface
+    public function getDateBirth(): ?DateTimeInterface
     {
         return $this->dateBirth;
     }
 
-    public function setDateBirth(\DateTimeInterface $dateBirth): self
+    public function setDateBirth(DateTimeInterface $dateBirth): self
     {
         $this->dateBirth = $dateBirth;
 
@@ -151,17 +189,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getLogin(): ?string
-    {
-        return $this->login;
-    }
-
-    public function setLogin(string $login): self
-    {
-        $this->login = $login;
-
-        return $this;
-    }
 
     /**
      * @see UserInterface
@@ -178,6 +205,22 @@ class User implements UserInterface
 
         return $this;
     }
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username): void
+    {
+        $this->username = $username;
+    }
+
 
     /**
      * @return Collection|Order[]
@@ -280,35 +323,29 @@ class User implements UserInterface
 
         return $this;
     }
+    public function getConfirmPassword()
+    {
+        return $this->confirm_password;
+    }
+    public function setConfirmPassword($confirm_password)
+    {
+        $this->confirm_password = $confirm_password;
+        return $this;
+    }
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles()
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return ['ROLE_USER'];
     }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
 
     public function getSalt()
     {
         // TODO: Implement getSalt() method.
     }
 
-    public function getUsername()
-    {
-        // TODO: Implement getUsername() method.
-    }
+
 
     public function eraseCredentials()
     {

@@ -36,14 +36,15 @@ class AppFixtures extends Fixture
        $faker = Factory::create();
         $users = [];
         $user = new User();
-        $user->setLogin('NadaLabidi')
-              ->setPassword($this->encoder->encodePassword($user,'password'))
-        ->setAdress($faker->address)
-        ->setFirstName($faker->firstName)
+        $user->setEmail('nada@yahoo.com')
+            ->setFirstName($faker->firstName)
         ->setLastName($faker->lastName)
+            ->setAdress($faker->address)
         ->setEmail($faker->email)
+            ->setPassword($this->encoder->encodePassword($user,'password'))
         ->setDateBirth($faker->dateTimeBetween( +10 , 'now', null))
-        ->setSkinType($faker->randomElement(self::$skintypes));
+        ->setSkinType($faker->randomElement(self::$skintypes))
+        ->setPhoneNumber($faker->phoneNumber);
 
         $manager->persist($user);
 
@@ -51,14 +52,15 @@ class AppFixtures extends Fixture
 
         for($i=0; $i<20; $i++){
             $user=new User();
-            $user->setLogin($faker->userName)
-                 ->setPassword($this->encoder->encodePassword($user, 'password'))
+            $user->setEmail($faker->email)
+                    ->setPassword($this->encoder->encodePassword($user, 'password'))
                     ->setAdress($faker->address)
                     ->setFirstName($faker->firstName)
                     ->setLastName($faker->lastName)
-                    ->setEmail($faker->email)
                     ->setDateBirth($faker->dateTimeBetween( +10 , 'now', null))
-                    ->setSkinType($faker->randomElement(self::$skintypes));
+                    ->setSkinType($faker->randomElement(self::$skintypes))
+                    ->setPhoneNumber($faker->phoneNumber);
+
 
 
             $manager->persist($user);
