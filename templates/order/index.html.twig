@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+    <div class="bg-light p-3">
+        <h1>My Orders</h1>
+    </div>
+    {% if orders | length > 0 and order_lines | length > 0 %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date of Order</th>
+        <th>Date of Delivery</th>
+        <th>Total Amount</th>
+        <th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for order in orders %}
+        <tr>
+            <td>{{ order.dateOrder | date("y-m-d") }}</td>
+            <td>{{ order.dateDelivery | date("y-m-d") }}</td>
+            <td>{{ order.amount }} Dt</td>
+            <td>
+                <a href="{{ path('details_index', {'id': order.id}) }}" class="btn btn-success btn-sm">
+                    View
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+
+</table>
+    {% else %}
+        <p>You have no Orders !</p>
+    {% endif %}
+{% endblock %}

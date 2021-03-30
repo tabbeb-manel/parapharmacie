@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+{% block content %}
+    <div class="bg-light p-3">
+        <h1>Products</h1>
+    </div>
+<div class="container-fluid">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-4 mt-4" align="center">
+                <div class="border border-dark rounded p-2 clearfix">
+                    <a href="#">
+                    <img class="img-fluid rounded" src="{{ product.photoProduct }}" alt="Image de {{ product.nameProduct }}">
+                    </a>
+                    <hr>
+                    <h5>
+                        {{ product.nameProduct }}
+                        <br>
+                        {{ product.price }}
+                        Dt
+                        <br>
+                        {{ product.skinType }}
+                    </h5>
+
+
+                    <a onclick="Add();" href="{{ path('cart_add',{id: product.id}) }}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Add
+                    </a>
+                    <div id="added"></div>
+                </div>
+
+
+
+            </div>
+        {% endfor %}
+    </div>
+</div>
+    <script>
+
+        function Add(){
+            alert("Added!")
+        }
+    </script>
+
+
+{% endblock %}

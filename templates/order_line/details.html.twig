@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Order Details
+{% endblock %}
+
+{% block content %}
+    <div class="bg-light p-3">
+        <h1>Order details</h1>
+    </div>
+
+    <div class="container-fluid">
+
+
+        <table class="table">
+            <thead>
+            <tr>
+
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for o in order_lines %}
+                {% if (orders | length > 0) and (order_lines | length > 0) %}
+                    {% if o.orderr.id == id %}
+
+                        <tr>
+
+                            <td></td>
+                            <td>{{ o.quantity }}</td>
+                            <td>{{ o.total }}</td>
+                        </tr>
+
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2" class="text-right">Total:</td>
+                <td> Dt</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+{% endblock %}
+
+
+
