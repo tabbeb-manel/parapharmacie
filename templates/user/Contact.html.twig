@@ -14,7 +14,6 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="contact-form">
-                        <form>
                             <div class="row">
                                 <div class="col-md-6">
                                     {{ form_row(form.username, { 'label':'username', 'attr': {'placeholder':'Your Name...' } }) }}
@@ -32,7 +31,6 @@
                             <div class="col-md-12">
                                 {{ form_row(form.submit, {'attr': {'class':"btn" ,'href':"path('user/contact.html.twig')" } })}}
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>

@@ -11,8 +11,7 @@
                                 <i class="fa fa-pencil"></i>  Compose Mail
                             </a>
                             <ul class="nav nav-pills nav-stacked mail-nav">
-                                <li class="active"><a href="inbox.html"> <i class="fa fa-inbox"></i> Inbox  <span class="label label-theme pull-right inbox-notification">3</span></a></li>
-                                <li><a href="#"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
+                                <li class="active"><a href="#"> <i class="fa fa-inbox"></i> Inbox  <span class="label label-theme pull-right inbox-notification">{{ mailview|length}}</span></a></li>
                                 </li>
                             </ul>
      <section class="panel">
@@ -37,10 +36,12 @@
                                                 <table class="table table-inbox table-hover">
                                                     <tbody>
                                                     {% for i in mailview %}
-                                                    <tr class="unread">
+                                                    <tr>
                                                         <td class="inbox-small-cells"><i class="fa fa-envelope-o"></i></td>
                                                         <td class="view-message  dont-show"><a href="mail_view.html">{{ i.username }}</a></td>
                                                         <td class="view-message "><a href="mail_view.html">{{ i.subject }}</a></td>
+                                                        <td class="btn btn-success btn-xs"><a href="{{ path('msg', {'id':i.id}) }}"><i class="fa fa-envelope-open"></i></a></td>
+
                                                     </tr>
                                                     {% endfor %}
                                                     </tbody>

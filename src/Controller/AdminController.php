@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Pagecontact;
+use App\Entity\PageContact;
 use App\Entity\User;
-use App\Form\PagecontactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,14 +71,15 @@ class AdminController extends AbstractController
 
     }
     /**
-     * @Route("/chatroom", name="chatroom")
+     * @Route("/{id}/message", name="msg")
+     * @param PageContact $pageContact
+     * @return Response
      */
-    public function affichechatroom(): Response
+    public function affichemessage(PageContact $pageContact):Response
     {
-        $Repo=$this->getDoctrine()->getRepository(Pagecontact::class);
-        $chatroom =$Repo->findAll();
-        return  $this->render('admin/chatroom.html.twig',[
-            "controller_name"=> "mailController","chatroom" => $chatroom
+
+        return  $this->render('admin/message.html.twig',[
+            'pagecontact'=>$pageContact
         ]);
 
     }

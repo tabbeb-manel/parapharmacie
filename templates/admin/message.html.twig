@@ -1,0 +1,20 @@
+{% extends 'base2.html.twig' %}
+{% block content %}
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+            <!-- page start-->
+            <div class="chat-room mt">
+                <aside class="mid-side">
+                    <div class="chat-room-head">
+                        <h3>Message</h3>
+                    </div>
+                    <div class="group-rom">
+                        <div class="first-part odd">{{ pagecontact.username}} </div>
+                        <div class="second-part">{{ pagecontact.message }}</div>
+                        <div  class="btn btn-theme04"><a href="{{ path('mail', {'id':pagecontact.id}) }}">Reply</a></div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </section>
+{% endblock %}
