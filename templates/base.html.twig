@@ -25,20 +25,20 @@
 
 <body>
 <!-- Top bar Start -->
-<div class="top-bar">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <i class="fa fa-envelope"></i>
-                support@email.com
-            </div>
-            <div class="col-sm-6">
-                <i class="fa fa-phone-alt"></i>
-                +012-345-6789
-            </div>
-        </div>
-    </div>
-</div>
+{#<div class="top-bar">#}
+{#    <div class="container-fluid">#}
+{#        <div class="row">#}
+{#            <div class="col-sm-6">#}
+{#                <i class="fa fa-envelope"></i>#}
+{#                support@email.com#}
+{#            </div>#}
+{#            <div class="col-sm-6">#}
+{#                <i class="fa fa-phone-alt"></i>#}
+{#                +012-345-6789#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 <!-- Top bar End -->
 
 <!-- Nav Bar Start -->
@@ -52,12 +52,11 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="product-list.html" class="nav-item nav-link">Products</a>
-                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                    <a href="cart.html" class="nav-item nav-link">Cart</a>
-                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                    <a href="my-account.html" class="nav-item nav-link">My Account</a>
+                    <a href="{{ path('product_index') }}" class="nav-item nav-link">Home</a>
+                    <a href="#" class="nav-item nav-link">Product Detail</a>
+                    <a href="{{ path('order_line_index') }}" class="nav-item nav-link">Cart</a>
+                    <a href="#" class="nav-item nav-link">Checkout</a>
+                    <a href="#" class="nav-item nav-link">My Account</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">More Pages</a>
                         <div class="dropdown-menu">
@@ -88,7 +87,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="{{ path('product_index') }}">
                         <img src="img/logo.png" alt="Logo">
                     </a>
                 </div>
@@ -101,13 +100,13 @@
             </div>
             <div class="col-md-3">
                 <div class="user">
-                    <a href="wishlist.html" class="btn wishlist">
+                    <a href="#" class="btn wishlist">
                         <i class="fa fa-heart"></i>
                         <span>(0)</span>
                     </a>
-                    <a href="cart.html" class="btn cart">
+                    <a href="{{ path('order_line_index') }}" class="btn cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
+                        <span id="ItemsNumber">(0)</span>
                     </a>
                 </div>
             </div>
@@ -184,9 +183,21 @@
 
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
 
+    let cart = localStorage.getItem("cart");
+    let cartarray = JSON.parse(cart);
+    let total = 0;
+    if(cartarray){
+    for (var i = 0; i < cartarray.length; i++) {
+        total += cartarray[i].quantity
+    }
+    domElement = document.getElementById('ItemsNumber')
+    domElement.innerText = total;
+    }
+</script>
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
 <script src="lib/slick/slick.min.js"></script>
