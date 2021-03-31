@@ -12,27 +12,21 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
-    /**
-     * @Route("/loginadmin",name="loginadmin")
-     */
-    public function login(AuthenticationUtils $authenticationUtils)
-    {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('admin/loginadmin.html.twig',
-            ['lastUsername'=>$lastUsername,'error' => $error]);
-    }
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/{id}/profilad", name="profilad")
+     * @param Admin $Admin
+     * @return Response
      */
-    public function logout()
+    public function afficheadmin(Admin $Admin):Response
     {
-        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
-    }
 
+        return  $this->render('admin/profiladmin.html.twig',[
+            'admin'=>$Admin
+
+        ]);
+
+    }
     /**
      * @Route("/listeuser", name="liste_user")
      */
@@ -46,18 +40,7 @@ class AdminController extends AbstractController
 
     }
 
-    /**
-     * @param $id
-     * @Route("/users/delete/{id}", name="user_delete")
-     * @return mixed
-     */
-    public function getUserDeleteAction($id)
-    {
 
-        $this->get('user')->deleteUser($id);
-
-        return $this->success();
-    }
     /**
      * @Route("/mailview", name="mailview")
      */
@@ -83,4 +66,5 @@ class AdminController extends AbstractController
         ]);
 
     }
+
 }

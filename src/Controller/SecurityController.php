@@ -2,6 +2,15 @@
 namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Form\UpdateType;
+use http\Client\Response;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +40,22 @@ class SecurityController extends AbstractController
         }
         return $this->render('security/registration.html.twig', ['user'=>$user,'form' => $form->createView(), 'title' => 'Inscription']);
     }
+    /**
+     * @route("update/{id}",name="update")
+     */
+    public function update( int $id, Request $request, User $user)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $form = $this->createForm(UpdateType::class,$user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+        }
+
+        return $this->render('user/modifier.html.twig', ['user'=>$user,'form' => $form->createView()]);
+
+}
     /**
      * @Route("/connexion",name="security_login")
      */

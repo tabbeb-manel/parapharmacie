@@ -1,6 +1,6 @@
 {% extends 'base2.html.twig' %}
 {% block content %}
-    <section id="main-content">
+    <section id="main-content" xmlns="http://www.w3.org/1999/html">
         <section class="wrapper">
             <!-- page start-->
             <div class="row mt">
@@ -26,23 +26,17 @@
                         <header class="panel-heading wht-bg">
                             <h4 class="gen-case">
                                 Compose Mail
-                                <form action="#" class="pull-right mail-src-position">
-                                    <div class="input-append">
-                                        <input type="text" class="form-control " placeholder="Search Mail">
-                                    </div>
-                                </form>
                             </h4>
                         </header>
-                        {{ contact.email }}
-                        {{ form_start(contactForm) }}
+                        <form>
 
                             <div class="panel-body">
                                 <div class="compose-btn pull-right">
                                 </div>
                                 <div class="compose-mail">
                                         <div class="form-group">
-                                            {{ form_row(contactForm.email, { 'label':'To:'})}}
-
+                                            <label for="to" class="">To:</label>
+                                            <input type="text" tabindex="1" id="to" class="form-control" value="{{ contact.email }}">
                                         </div>
                                         <div class="form-group">
                                             {{ form_row(contactForm.subject, { 'label':'Subject:' }) }}
@@ -56,7 +50,7 @@
                                 </div>
                             </div>
 
-                        {{ form_end(contactForm)}}
+                    </form>
 
                     </section>
                 </div>

@@ -7,7 +7,7 @@
                 <div class="col-sm-3">
                     <section class="panel">
                         <div class="panel-body">
-                            <a href="mail_compose.html" class="btn btn-compose">
+                            <a href="mail.html.twig" class="btn btn-compose">
                                 <i class="fa fa-pencil"></i>  Compose Mail
                             </a>
                             <ul class="nav nav-pills nav-stacked mail-nav">
@@ -26,11 +26,7 @@
                                     <header class="panel-heading wht-bg">
                                         <h4 class="gen-case">
                                             Inbox
-                                            <form action="#" class="pull-right mail-src-position">
-                                                <div class="input-append">
-                                                    <input type="text" class="form-control " placeholder="Search Mail">
-                                                </div>
-                                            </form>
+
                                         </h4>
                                             <div class="table-inbox-wrap ">
                                                 <table class="table table-inbox table-hover">
@@ -40,7 +36,7 @@
                                                         <td class="inbox-small-cells"><i class="fa fa-envelope-o"></i></td>
                                                         <td class="view-message  dont-show"><a href="mail_view.html">{{ i.username }}</a></td>
                                                         <td class="view-message "><a href="mail_view.html">{{ i.subject }}</a></td>
-                                                        <td class="btn btn-success btn-xs"><a href="{{ path('msg', {'id':i.id}) }}"><i class="fa fa-envelope-open"></i></a></td>
+                                                        <td class="btn btn-round btn-info"><a href="{{ path('msg', {'id':i.id}) }}"><i class="fa fa-envelope-open"></i></a></td>
 
                                                     </tr>
                                                     {% endfor %}

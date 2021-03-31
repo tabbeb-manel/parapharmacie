@@ -18,7 +18,7 @@ class MailType extends AbstractType
     {
         $builder
             ->add('email',EmailType::class,[
-                "attr"=>["class"=>"form-control"]
+                "attr"=>["class"=>"form-group"]
             ])
             ->add('subject',\Symfony\Component\Form\Extension\Core\Type\TextType::class,[
                 "attr"=>["class"=>"form-control"]

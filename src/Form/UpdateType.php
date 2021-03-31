@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-class RegistrationType extends AbstractType
+class UpdateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,7 +24,7 @@ class RegistrationType extends AbstractType
                 "attr"=>["class"=>"form-control"]
             ])
             ->add('lastName',TextType::class,[
-        "attr"=>["class"=>"form-control"]
+                "attr"=>["class"=>"form-control"]
             ])
             ->add('dateBirth',DateType::class,[
                 "attr"=>["class"=>"form-control"]
@@ -39,10 +39,10 @@ class RegistrationType extends AbstractType
                 'choices'  => [
                     'Seche' => 'Seche',
                     'Mixte' => 'Mixte',
-                    'Grace' => 'Grasse',
+                    'Grasse' => 'Grasse',
                     'Normal' => 'Normal',
                 ],"attr"=>["class"=>"form-control"
-            ]])
+                ]])
 
             ->add('email',EmailType::class,[
                 "attr"=>["class"=>"form-control"]
@@ -56,7 +56,7 @@ class RegistrationType extends AbstractType
             ->add('confirm_password',PasswordType::class,[
                 "attr"=>["class"=>"form-control"]
             ])
-            ->add('submit', SubmitType::class, ['label'=>'S inscrire', 'attr'=>['class'=>'btn-primary btn-block']])
+            ->add('submit', SubmitType::class, ['label'=>'Update', 'attr'=>['class'=>'btn-primary btn-block']])
         ;
     }
 
