@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wish list{% endblock %}
+
+{% block content %}
+
+    <div class="bg-light p-3">
+        <h1>Your Wish list</h1>
+    </div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        {% if items | length > 0 %}
+        {% for i in items %}
+
+            <div class="col-lg-4 mt-1" align="center">
+                <div class="border border-dark rounded p-2 clearfix">
+                    <a href="#">
+                        <img class="img-fluid rounded" src="{{ i.product.photoProduct }}" alt="Image de {{ i.product.nameProduct }}">
+                    </a>
+                    <hr>
+                    <h5>
+                        {{ i.product.nameProduct }}
+                        <br>
+                        {{ i.product.price }}
+                        Dt
+                        <br>
+                        {{ i.product.skinType }}
+                    </h5>
+
+                    <a onclick="Add();" href="{{ path('cart_add',{id: i.product.id}) }}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Add to Cart
+                    </a>
+
+                    <a href="{{ path('wishlistd_index',{id: i.product.id}) }}" class="btn btn-danger float-right">
+                        <i class="fas fa-trash mr-1"></i>
+                        Remove
+                    </a>
+
+                    <div id="added"></div>
+
+
+
+                </div>
+
+
+
+            </div>
+        {% endfor %}
+
+        {% else %}
+            <p>My wish list is empty !</p>
+        {% endif %}
+
+    </div>
+</div>
+    <script>
+
+        function Add(){
+            alert("Added!")
+        }
+    </script>
+
+{% endblock %}

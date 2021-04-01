@@ -1,0 +1,62 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block content %}
+    <section id="main-content">
+        <section class="wrapper">
+
+            <div class="bg-light p-3">
+                <h1>Order Details</h1>
+            </div>
+
+            {% set total = 0 %}
+
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for o in order_lines %}
+                    {% if (orders | length > 0) and (order_lines | length > 0) %}
+                        {% if o.orderr.id == id %}
+                            {% set total = total + o.total %}
+                            <tr>
+
+                                <td>{{ o.product.nameProduct }}</td>
+                                <td>{{ o.quantity }}</td>
+                                <td>{{ o.total }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-success btn-sm">
+                                        Edit
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-sm">
+                                        Cancel
+                                    </a>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2" class="text-right">Total:</td>
+                    <td> {{ total}} DT</td>
+                </tr>
+                </tfoot>
+            </table>
+
+
+        </section>
+    </section>
+
+{% endblock %}
