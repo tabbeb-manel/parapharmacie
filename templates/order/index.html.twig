@@ -13,7 +13,9 @@
         <th>Date of Order</th>
         <th>Date of Delivery</th>
         <th>Total Amount</th>
+        <th>Status</th>
         <th>
+
         </th>
     </tr>
     </thead>
@@ -24,6 +26,12 @@
             <td>{{ order.dateOrder | date("y-m-d") }}</td>
             <td>{{ order.dateDelivery | date("y-m-d") }}</td>
             <td>{{ order.amount }} Dt</td>
+            {% if order.status == 1 %}
+            <td>Order not yet confirmed</td>
+            {% else %}
+            <td>Order on delivery</td>
+
+                {% endif %}
             <td>
                 <a href="{{ path('details_index', {'id': order.id}) }}" class="btn btn-success btn-sm">
                     View

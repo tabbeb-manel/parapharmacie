@@ -45,6 +45,11 @@ class Order
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
@@ -129,6 +134,18 @@ class Order
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

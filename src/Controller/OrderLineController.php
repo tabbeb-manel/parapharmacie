@@ -111,18 +111,55 @@ class OrderLineController extends AbstractController
 
     /**
      * @param $id
-     * @Route("/details/{id}", name="details_index")
+     * @Route("/order/details/{id}", name="details_index")
      */
-    public function Od($id, OrderLineRepository $orderLineRepository, OrderRepository $orderRepository)
+    public function Od(SessionInterface $session,ProductRepository $productRepository,$id, OrderLineRepository $orderLineRepository, OrderRepository $orderRepository)
     {
-        $ol = $orderRepository->find($id);
 
         return $this->render('order_line/details.html.twig', [
             'order_lines' => $orderLineRepository->findAll(),
             'orders' => $orderRepository->findAll(),
-            'id' => $id
-
+            'id' => $id,
         ]);
+    }
+
+    /**
+     * @Route("/deleteCart", name="delete_cart_index")
+     */
+    public function ClearSession(SessionInterface $session){
+
+        $session->remove('cart');
+        return $this->redirectToRoute("order_line_index");
+    }
+
+
+    /**
+     * @param $id
+     * @Route("/orderlist/odetails/{id}", name="odetails_index")
+     */
+
+    public function Odetails(SessionInterface $session,ProductRepository $productRepository,$id, OrderLineRepository $orderLineRepository, OrderRepository $orderRepository)
+    {
+
+        return $this->render('order_line/orderdetail.html.twig', [
+            'order_lines' => $orderLineRepository->findAll(),
+            'orders' => $orderRepository->findAll(),
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @Route("/orderlist/valier/{id}", name="ValidateOrder")
+     */
+
+    public function ValidateOrder($id,OrderRepository $ordRep)
+    {
+    $em = $this->getDoctrine()->getManager();
+    $order = $em->getRepository(Order::class)->find($id);
+    $order->setStatus(2);
+    $em->flush();
+    return $this->redirectToRoute("orderlist_index");
     }
 
 

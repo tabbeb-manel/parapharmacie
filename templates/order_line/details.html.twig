@@ -10,6 +10,8 @@
     </div>
 
     <div class="container-fluid">
+        {% set total = 0 %}
+
 
 
         <table class="table">
@@ -25,26 +27,29 @@
             <tbody>
             {% for o in order_lines %}
                 {% if (orders | length > 0) and (order_lines | length > 0) %}
-                    {% if o.orderr.id == id %}
-
+                {% if o.orderr.id == id %}
+        {% set total = total + o.total %}
                         <tr>
 
-                            <td></td>
+                            <td>{{ o.product.nameProduct }}</td>
                             <td>{{ o.quantity }}</td>
                             <td>{{ o.total }}</td>
                         </tr>
-
-                    {% endif %}
                 {% endif %}
+                {% endif %}
+
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
                 <td colspan="2" class="text-right">Total:</td>
-                <td> Dt</td>
+                <td> {{ total}} DT</td>
             </tr>
             </tfoot>
         </table>
+
+
+
     </div>
 
 

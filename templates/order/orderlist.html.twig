@@ -1,42 +1,52 @@
 {% extends 'base2.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Orders{% endblock %}
 
 {% block content %}
+    <section id="main-content">
+    <section class="wrapper">
 
     <div class="bg-light p-3">
-        <h1>My Orders</h1>
+        <h1>New Orders</h1>
     </div>
     {% if orders | length > 0 %}
-        <table class="table">
+        <table class="table table-bordered table-striped table-condensed">
             <thead>
             <tr>
+{#                <th>User</th>#}
                 <th>Date of Order</th>
                 <th>Date of Delivery</th>
                 <th>Total Amount</th>
-                <th>
-                </th>
+
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
             {% for order in orders %}
+                {% if order.status == 1 %}
                 <tr>
+{#                    <td>{{ order.user.firstName }}</td>#}
                     <td>{{ order.dateOrder | date("y-m-d") }}</td>
                     <td>{{ order.dateDelivery | date("y-m-d") }}</td>
                     <td>{{ order.amount }} Dt</td>
+
                     <td>
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="{{ path('odetails_index',{'id': order.id }) }}" class="btn btn-info btn-sm">
                             View
                         </a>
-                        <a href="#" class="btn btn-success btn-sm">
-                            Edit
+                        <a href="{{ path('ValidateOrder',{'id': order.id }) }}" class="btn btn-info btn-sm">
+                            Validate
                         </a>
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="{{ path('edit_index',{'id': order.id }) }}" class="btn btn-success btn-sm">
+                            Change delivery date
+                        </a>
+                        <a href="{{ path('cancel_index',{'id':order.id}) }}" class="btn btn-danger btn-sm">
                             Cancel
                         </a>
                     </td>
                 </tr>
+                {% endif %}
             {% endfor %}
 
             </tbody>
@@ -46,5 +56,7 @@
         <p>No Orders Yet !</p>
     {% endif %}
 
+    </section>
+    </section>
 
 {% endblock %}

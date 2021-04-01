@@ -46,8 +46,15 @@
             </tfoot>
         </table>
         <div>
+            {% if app.user %}
             <a href="{{ path('validate_order') }}" class="btn btn-success btn-bg"> Validate order </a>
-            <a href="#" class="btn btn-danger btn-bg"> Cancel order </a>
+                    <a href="{{ path('delete_cart_index') }}" class="btn btn-danger btn-bg"> Cancel order </a>
+
+            {% else %}
+                <a href="{{ path('validate_order') }}" class="btn btn-success btn-bg"> Validate order</a>
+                <a href="{{ path('delete_cart_index') }}" class="btn btn-danger btn-bg"> Cancel order </a>
+            {% endif %}
+
         </div>
     {% else %}
         <p>My cart is empty !</p>

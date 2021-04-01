@@ -26,12 +26,17 @@
                         {{ product.skinType }}
                     </h5>
 
-
                     <a onclick="Add();" href="{{ path('cart_add',{id: product.id}) }}" class="btn btn-success float-right">
                         <i class="fas fa-shopping-cart mr-1"></i>
-                        Add
+                        Add to Cart
                     </a>
                     <div id="added"></div>
+
+                    <a href="{{ path('wishlistadd_index',{id: product.id}) }}" class="btn btn-success float-right">
+                        <i class="fas fa-heart mr-1"></i>
+                        Add to Wishlist
+                    </a>
+
                 </div>
 
 
